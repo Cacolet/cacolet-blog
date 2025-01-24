@@ -65,7 +65,9 @@ export default defineConfig({
       categoryId: 'DIC_kwDOAgh6sc4Ca7BZ',
     },
     // 关闭所有页面的左侧菜单栏
-    sidebar: {},
+    sidebar: {
+      
+    },
     // 顶部导航栏
     nav: [
       {
