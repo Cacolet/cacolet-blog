@@ -34,6 +34,11 @@ jobs:
       - name: Build with Rspress
         run: |
           pnpm run build:blog
+      - name: Debug Check Dist
+        run: |
+          echo "Current working directory: $(pwd)"
+          ls -la
+          ls -la dist/  # 检查 dist 是否存在
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         with:
