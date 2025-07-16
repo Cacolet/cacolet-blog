@@ -37,6 +37,7 @@ jobs:
       - name: Debug Check Dist
         run: |
           echo "Current working directory: $(pwd)"
+          cd blog
           ls -la
           ls -la dist/  # 检查 dist 是否存在
       - name: Deploy to Server
