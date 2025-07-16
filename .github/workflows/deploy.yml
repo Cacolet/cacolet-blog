@@ -1,4 +1,4 @@
-name: SumyBlog site to Pages
+name: Cacolet site to Pages
 
 on:
   push:
@@ -34,41 +34,20 @@ jobs:
       - name: Build with Rspress
         run: |
           pnpm run build:blog
-      - name: Archive files
-        run: zip -qq -r sumyblog.zip ./blog/doc_build
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
         with:
-          name: sumyblog-artifact
-          path: ./sumyblog.zip
-          if-no-files-found: error
-  # Deployment job
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: sumyblog-artifact
-      - name: Unzip artifact
-        run: unzip -qq sumyblog.zip -d ./
-      - name: Commit files
-        run: |
-          cd ./blog/doc_build
-          git init
-          git remote add origin git@github.com:sumy7/sumy7.github.io.git
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git branch -m main
-          git add .
-          git commit -a -m "site updated: $(date -u '+%Y-%m-%d %H:%M:%S')"
-      - name: Push Docs
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.DEPLOY_TOKENS }}
-          repository: sumy7/sumy7.github.io
-          branch: main
-          directory: ./blog/doc_build
-          force: true
+          # 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中
+          SSH_PRIVATE_KEY: ${{ secrets.BLOG }}
+          # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
+          ARGS: "-avz --delete"
+          # 源目录
+          SOURCE: "./dist/"
+          # 部署目标主机
+          REMOTE_HOST: ${{ secrets.HOST }}
+          # 部署目标主机端口
+          REMOTE_PORT: ${{ secrets.PORT }}
+          # 登录用户
+          REMOTE_USER: ${{ secrets.USER }}
+          # 部署目标目录
+          TARGET: ${{ secrets.TARGET }}
