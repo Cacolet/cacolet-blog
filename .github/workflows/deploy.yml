@@ -41,7 +41,7 @@ jobs:
           # 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中
           SSH_PRIVATE_KEY: ${{ secrets.BLOG }}
           # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-          ARGS: "-avz --delete"
+          ARGS: "-avz --delete --exclude=.user.ini"
           # 源目录
           SOURCE: "blog/doc_build/"
           # 部署目标主机
