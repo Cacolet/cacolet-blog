@@ -125,11 +125,11 @@ export default defineConfig({
     prevPageText: '上一篇',
     nextPageText: '下一篇',
     outlineTitle: '目录',
-    editLink: {
-      text: '📝 在 GitHub 上编辑此页',
-      docRepoBaseUrl:
-        'https://github.com/sumy7/SumyBlog-rspress/blob/main/source/',
-    },
+    // editLink: {
+    //   text: '📝 在 GitHub 上编辑此页',
+    //   docRepoBaseUrl:
+    //     'https://github.com/sumy7/SumyBlog-rspress/blob/main/source/',
+    // },
     searchPlaceholderText: '搜索...',
   },
   globalUIComponents: [],
